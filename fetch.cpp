@@ -1,4 +1,4 @@
-#include <iostream>
+#include <print>
 #include <string>
 #include <string_view>
 
@@ -51,8 +51,10 @@ string cpu() {
 #define RESET "\x1b[0m"
 
 int main() {
-    cout << logo_for_distro() << "\n"; // this is colored already, see distros/*.hpp
-    cout << DISTRO_FAMILY_COLOR << distro_family() << RESET << "\n";
-    cout << DISTRO_COLOR << distro() << RESET << "\n";
-    cout << CPU_COLOR << cpu() << RESET << "\n";
+    print("{}\n", logo_for_distro()); // this is colored already, see distros/*.hpp
+    print("{}{}{}\n", DISTRO_FAMILY_COLOR, distro_family(), RESET);
+    print("{}{}{}\n", DISTRO_COLOR, distro(), RESET);
+    print("{}{}{}\n", CPU_COLOR, cpu(), RESET);
+    
+    return 0;
 }
