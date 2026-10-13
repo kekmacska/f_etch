@@ -1,6 +1,11 @@
-#include <print>
 #include <string>
 #include <string_view>
+#if defined(__has_include)
+    #if __has_include(<print>)
+        #include <print>
+        #define USE_STD_PRINT
+    #endif
+#endif
 
 using namespace std;
 
@@ -51,10 +56,22 @@ string cpu() {
 #define RESET "\x1b[0m"
 
 int main() {
+#ifdef USE_STD_PRINT
+    // C++26
     print("{}\n", logo_for_distro()); // this is colored already, see distros/*.hpp
     print("{}{}{}\n", DISTRO_FAMILY_COLOR, distro_family(), RESET);
     print("{}{}{}\n", DISTRO_COLOR, distro(), RESET);
     print("{}{}{}\n", CPU_COLOR, cpu(), RESET);
+#else
+    // Fallback for older compilers/stdlibs (Android/Older Linux)
+    std::ios_base::sync_with_stdio(false);
+    std::cin.tie(nullptr);
+
+    std::cout << logo_for_distro() << "\n"; // this is colored already, see distros/*.hpp
+    std::cout << DISTRO_FAMILY_COLOR << distro_family() << RESET << "\n";
+    std::cout << DISTRO_COLOR << distro() << RESET << "\n";
+    std::cout << CPU_COLOR << cpu() << RESET << "\n";
+#endif
     
     return 0;
 }
