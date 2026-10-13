@@ -1,4 +1,5 @@
 #include <string>
+#include <iostream>
 #include <string_view>
 #if defined(__has_include)
     #if __has_include(<print>)
@@ -67,11 +68,11 @@ int main() {
     std::ios_base::sync_with_stdio(false);
     std::cin.tie(nullptr);
 
-    std::cout << logo_for_distro() << "\n"; // this is colored already, see distros/*.hpp
-    std::cout << DISTRO_FAMILY_COLOR << distro_family() << RESET << "\n";
-    std::cout << DISTRO_COLOR << distro() << RESET << "\n";
-    std::cout << CPU_COLOR << cpu() << RESET << "\n";
-#endif
+    cout << logo_for_distro() << "\n"; // this is colored already, see distros/*.hpp
+    cout << DISTRO_FAMILY_COLOR << distro_family() << RESET << "\n";
+    cout << DISTRO_COLOR << distro() << RESET << "\n";
+    cout << CPU_COLOR << cpu() << RESET << "\n";
     
     return 0;
+#endif
 }
