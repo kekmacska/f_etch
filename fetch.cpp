@@ -24,16 +24,15 @@ struct LogoRule {
 };
 
 // customize the return values. see definitions in distros/*.hpp
-static const LogoRule LOGO_RULES[] = {
-    {{"Arch"}, archlogo_fullblock},
-    // {{"Debian", "Ubuntu", "Mint", "Pop"}, debian_logo},
-    // {{"Fedora", "Red Hat", "CentOS", "Rocky", "Alma"}, redhat_logo},
-    // {{"SUSE"}, suse_logo},
-    // {{"Gentoo"}, gentoo_logo},
-};
-
 string_view logo_for_distro() {
 #ifdef IS_NON_ANDROID_LINUX
+    static const LogoRule LOGO_RULES[] = {
+        {{"Arch"}, archlogo_fullblock},
+        // {{"Debian", "Ubuntu", "Mint", "Pop"}, debian_logo},
+        // {{"Fedora", "Red Hat", "CentOS", "Rocky", "Alma"}, redhat_logo},
+        // {{"SUSE"}, suse_logo},
+        // {{"Gentoo"}, gentoo_logo},
+    };
     const string family = distro_family();
     const string name = distro();
 
