@@ -18,19 +18,42 @@ using namespace std;
     #include "distros/android.hpp"
 #endif
 
-string_view logo_for_distro() { // customize the return values. see definitions in distros/*.hpp
-    #ifdef IS_NON_ANDROID_LINUX
-        if(distro_family()=="Arch Linux") {
-            return archlogo_fullblock;
+struct LogoRule {
+    initializer_list<string_view> distros;
+    string_view logo;
+};
+
+// customize the return values. see definitions in distros/*.hpp
+static const LogoRule LOGO_RULES[] = {
+    {{"Arch"}, archlogo_fullblock},
+    // {{"Debian", "Ubuntu", "Mint", "Pop"}, debian_logo},
+    // {{"Fedora", "Red Hat", "CentOS", "Rocky", "Alma"}, redhat_logo},
+    // {{"SUSE"}, suse_logo},
+    // {{"Gentoo"}, gentoo_logo},
+};
+
+string_view logo_for_distro() {
+#ifdef IS_NON_ANDROID_LINUX
+    const string family = distro_family();
+    const string name = distro();
+
+    for (const LogoRule& rule : LOGO_RULES) {
+        for (string_view pattern : rule.distros) {
+            if (family.find(pattern) != string::npos ||
+                name.find(pattern) != string::npos) {
+                return rule.logo;
+            }
         }
-    #endif
+    }
+#endif
 
-    #ifdef __ANDROID__
-        return androidlogo_dot;
-    #endif
+#ifdef __ANDROID__
+    return androidlogo_dot;
+#endif
 
-    return string_view("");
+    return "";
 }
+
 
 string cpu() {
     #ifdef __ANDROID__
