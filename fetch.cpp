@@ -29,7 +29,7 @@ string_view logo_for_distro() {
 #ifdef IS_NON_ANDROID_LINUX
     static const LogoRule LOGO_RULES[] = {
         {{"Arch"}, archlogo_fullblock},
-        {{"Debian", "Ubuntu", "Mint", "Pop"}, debianlogo_filled},
+        {{"Debian", "Ubuntu", "Mint", "Pop"}, debianlogo_swirl},
         // {{"Fedora", "Red Hat", "CentOS", "Rocky", "Alma"}, redhat_logo},
         // {{"SUSE"}, suse_logo},
         // {{"Gentoo"}, gentoo_logo},
