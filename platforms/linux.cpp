@@ -8,7 +8,7 @@ using namespace std;
 pair<string, string> read_os_release() {
     ifstream file("/etc/os-release");
     string line;
-    string family = "Linux (generic)";
+    string family = "Linux";
     string distro = "Linux (generic)";
     bool have_family = false;
     bool have_distro = false;

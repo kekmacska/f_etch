@@ -10,12 +10,13 @@ using namespace std;
 
 #ifdef IS_NON_ANDROID_LINUX
     #include "platforms/linux.cpp"
-    #include "distros/arch.hpp"
+    #include "ascii/arch.hpp"
+    #include "ascii/debian.hpp"
 #endif
 
 #ifdef __ANDROID__
     #include "platforms/android.cpp"
-    #include "distros/android.hpp"
+    #include "ascii/android.hpp"
 #endif
 
 struct LogoRule {
@@ -23,12 +24,12 @@ struct LogoRule {
     string_view logo;
 };
 
-// customize the return values. see definitions in distros/*.hpp
+// customize the return values. see definitions in ascii/*.hpp
 string_view logo_for_distro() {
 #ifdef IS_NON_ANDROID_LINUX
     static const LogoRule LOGO_RULES[] = {
         {{"Arch"}, archlogo_fullblock},
-        // {{"Debian", "Ubuntu", "Mint", "Pop"}, debian_logo},
+        {{"Debian", "Ubuntu", "Mint", "Pop"}, debianlogo_filled},
         // {{"Fedora", "Red Hat", "CentOS", "Rocky", "Alma"}, redhat_logo},
         // {{"SUSE"}, suse_logo},
         // {{"Gentoo"}, gentoo_logo},
@@ -77,10 +78,10 @@ int main() {
     std::ios_base::sync_with_stdio(false);
     std::cin.tie(nullptr);
 
-    cout << logo_for_distro() << "\n"; // this is colored already, see distros/*.hpp
-    cout << DISTRO_FAMILY_COLOR << distro_family() << RESET << "\n";
-    cout << DISTRO_COLOR << distro() << RESET << "\n";
-    cout << CPU_COLOR << cpu() << RESET << "\n";
+    cout << logo_for_distro() << "\n"
+        << DISTRO_FAMILY_COLOR << distro_family() << RESET << "\n"
+        << DISTRO_COLOR << distro() << RESET << "\n"
+        << CPU_COLOR << cpu() << RESET << "\n";
 
     return 0;
 }
