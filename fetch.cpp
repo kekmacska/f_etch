@@ -10,6 +10,7 @@ using namespace std;
 
 #ifdef IS_NON_ANDROID_LINUX
     #include "platforms/linux.cpp"
+    #include "ascii/linux.hpp"
     #include "ascii/arch.hpp"
     #include "ascii/debian.hpp"
 #endif
@@ -51,7 +52,8 @@ string_view logo_for_distro() {
     return androidlogo_dot;
 #endif
 
-    return "";
+    // generic linux mascot
+    return linuxlogo_tux_official;
 }
 
 
@@ -74,10 +76,10 @@ string cpu() {
 #define RESET "\x1b[0m"
 
 int main() {
-    // Needed due to legacy compilers/stdlibs (Android/Older Linux)
     std::ios_base::sync_with_stdio(false);
     std::cin.tie(nullptr);
 
+    // Needed due to legacy compilers/stdlibs (Android/Older Linux)
     cout << logo_for_distro() << "\n"
         << DISTRO_FAMILY_COLOR << distro_family() << RESET << "\n"
         << DISTRO_COLOR << distro() << RESET << "\n"
