@@ -26,7 +26,8 @@ pair<string, string> read_os_release() {
             
             if (val_len > 0) {
                 family.assign(line.data() + val_start, val_len);
-                if (!family.empty()) family[0] &= ~0x20;
+                if (!family.empty()) family[0] &= ~0x20; // make the first char uppercase if family is not empty, by zeroing the 6th bit from backwards in binary ASCII using AND assignment
+                // example: 'A'=0x41, 'a'=0x61 - the hexadecimal difference is 0x20 (bit 6) https://en.wikipedia.org/wiki/ASCII#mwBb4
                 family += " Linux";
                 have_family = true;
             }

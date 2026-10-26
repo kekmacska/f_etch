@@ -1,6 +1,7 @@
 #include <string>
 #include <iostream>
 #include <string_view>
+#include "platforms/shared.cpp"
 
 using namespace std;
 
@@ -46,14 +47,16 @@ string_view logo_for_distro() {
             }
         }
     }
+
+    // generic linux mascot
+    return linuxlogo_tux_official;
 #endif
 
 #ifdef __ANDROID__
     return androidlogo_dot;
 #endif
 
-    // generic linux mascot
-    return linuxlogo_tux_official;
+    return "";
 }
 
 
@@ -73,6 +76,7 @@ string cpu() {
 #define DISTRO_FAMILY_COLOR "\x1b[38;2;0;215;255m"   // cyan
 #define DISTRO_COLOR        "\x1b[38;2;255;95;175m"  // pink
 #define CPU_COLOR           "\x1b[38;2;255;175;0m"   // amber
+#define KERNEL_COLOR        "\x1b[38;2;175;95;255m"  // purple
 #define RESET "\x1b[0m"
 
 int main() {
@@ -83,7 +87,8 @@ int main() {
     cout << logo_for_distro() << "\n"
         << DISTRO_FAMILY_COLOR << distro_family() << RESET << "\n"
         << DISTRO_COLOR << distro() << RESET << "\n"
-        << CPU_COLOR << cpu() << RESET << "\n";
+        << CPU_COLOR << cpu() << RESET << "\n"
+        << KERNEL_COLOR << kernelver() << "\n";
 
     return 0;
 }
