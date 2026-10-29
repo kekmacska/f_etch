@@ -19,7 +19,7 @@ DEBUG_STRIP = -fno-asynchronous-unwind-tables
 
 # Combined CXX Flags
 CXXFLAGS = $(OPT_FLAGS) $(ALIGN_FLAGS) $(MATH_FLAGS) $(SECURITY_FLAGS) \
-           -pipe -flto -Wall -Wno-unused -std=c++26 $(STDLIB_FLAGS) $(LINKER_OPT) $(DEBUG_STRIP)
+           -pipe -flto -Wall -Wno-unused -std=c++23 $(STDLIB_FLAGS) $(LINKER_OPT) $(DEBUG_STRIP)
 
 # Linker Flags
 LDFLAGS = -fuse-ld=$(LD) -Wl,--icf=safe -Wl,--gc-sections -Wl,-O3 -flto -fno-plt

@@ -1,5 +1,5 @@
 #include <string>
-#include <iostream>
+#include <print>
 #include <string_view>
 #include "platforms/shared.cpp"
 
@@ -77,18 +77,34 @@ string cpu() {
 #define DISTRO_COLOR        "\x1b[38;2;255;95;175m"  // pink
 #define CPU_COLOR           "\x1b[38;2;255;175;0m"   // amber
 #define KERNEL_COLOR        "\x1b[38;2;175;95;255m"  // purple
+#define UPTIME_COLOR        "\x1b[38;2;0;255;127m"  // Spring Green
 #define RESET "\x1b[0m"
 
 int main() {
-    std::ios_base::sync_with_stdio(false);
-    std::cin.tie(nullptr);
+    //std::ios_base::sync_with_stdio(false);
+    //std::cin.tie(nullptr);
 
-    // Needed due to legacy compilers/stdlibs (Android/Older Linux)
-    cout << logo_for_distro() << "\n"
-        << DISTRO_FAMILY_COLOR << distro_family() << RESET << "\n"
-        << DISTRO_COLOR << distro() << RESET << "\n"
-        << CPU_COLOR << cpu() << RESET << "\n"
-        << KERNEL_COLOR << kernelver() << "\n";
+    // If you need it due to legacy compilers/stdlibs (Android/Older Linux)
+    //cout << logo_for_distro() << "\n"
+    //    << DISTRO_FAMILY_COLOR << distro_family() << RESET << "\n"
+    //    << DISTRO_COLOR << distro() << RESET << "\n"
+    //    << CPU_COLOR << cpu() << RESET << "\n"
+    //    << KERNEL_COLOR << kernelver() << RESET << "\n";
+
+    print(
+        "{}{}\n"
+        "{}{}{}\n"
+        "{}{}{}\n"
+        "{}{}{}\n"
+        "{}{}{}\n"
+        "{}{}{}\n",
+        logo_for_distro(), RESET,
+        DISTRO_FAMILY_COLOR, distro_family(), RESET,
+        DISTRO_COLOR, distro(), RESET,
+        CPU_COLOR, cpu(), RESET,
+        KERNEL_COLOR, kernelver(), RESET,
+        UPTIME_COLOR, uptime(), RESET
+    );
 
     return 0;
 }
