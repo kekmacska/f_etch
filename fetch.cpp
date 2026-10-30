@@ -1,3 +1,4 @@
+#include <string>
 #include <string_view>
 #include "platforms/shared.cpp"
 
@@ -8,7 +9,7 @@ using namespace std;
 #endif
 
 #ifdef IS_NON_ANDROID_LINUX
-    #include <string>
+    #include <print>
     #include "platforms/linux.cpp"
     #include "ascii/linux.hpp"
     #include "ascii/arch.hpp"
@@ -16,7 +17,7 @@ using namespace std;
 #endif
 
 #ifdef __ANDROID__
-    #include <print>
+    #include <iostream>
     #include "platforms/android.cpp"
     #include "ascii/android.hpp"
 #endif
