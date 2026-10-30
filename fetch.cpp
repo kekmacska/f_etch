@@ -81,30 +81,35 @@ string cpu() {
 #define RESET "\x1b[0m"
 
 int main() {
-    //std::ios_base::sync_with_stdio(false);
-    //std::cin.tie(nullptr);
+    #ifdef __ANDROID__
+        std::ios_base::sync_with_stdio(false);
+        std::cin.tie(nullptr);
 
-    // If you need it due to legacy compilers/stdlibs (Android/Older Linux)
-    //cout << logo_for_distro() << "\n"
-    //    << DISTRO_FAMILY_COLOR << distro_family() << RESET << "\n"
-    //    << DISTRO_COLOR << distro() << RESET << "\n"
-    //    << CPU_COLOR << cpu() << RESET << "\n"
-    //    << KERNEL_COLOR << kernelver() << RESET << "\n";
+        // print on android doesn't work with -march=native
+        cout << logo_for_distro() << "\n"
+            << DISTRO_FAMILY_COLOR << distro_family() << RESET << "\n"
+            << DISTRO_COLOR << distro() << RESET << "\n"
+            << CPU_COLOR << cpu() << RESET << "\n"
+            << KERNEL_COLOR << kernelver() << RESET << "\n"
+            << UPTIME_COLOR << uptime() << RESET << "\n";
+    #endif
 
-    print(
-        "{}{}\n"
-        "{}{}{}\n"
-        "{}{}{}\n"
-        "{}{}{}\n"
-        "{}{}{}\n"
-        "{}{}{}\n",
-        logo_for_distro(), RESET,
-        DISTRO_FAMILY_COLOR, distro_family(), RESET,
-        DISTRO_COLOR, distro(), RESET,
-        CPU_COLOR, cpu(), RESET,
-        KERNEL_COLOR, kernelver(), RESET,
-        UPTIME_COLOR, uptime(), RESET
-    );
+    #ifdef IS_NON_ANDROID_LINUX
+        print(
+            "{}{}\n"
+            "{}{}{}\n"
+            "{}{}{}\n"
+            "{}{}{}\n"
+            "{}{}{}\n"
+            "{}{}{}\n",
+            logo_for_distro(), RESET,
+            DISTRO_FAMILY_COLOR, distro_family(), RESET,
+            DISTRO_COLOR, distro(), RESET,
+            CPU_COLOR, cpu(), RESET,
+            KERNEL_COLOR, kernelver(), RESET,
+            UPTIME_COLOR, uptime(), RESET
+        );
+    #endif
 
     return 0;
 }
