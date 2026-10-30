@@ -52,7 +52,7 @@ pair<string, string> read_os_release() {
     return {std::move(family), std::move(distro)};
 }
 
-const auto distro_info() { // helper to only call reader function once
+const pair<string, string> distro_info() { // helper to only call reader function once
     static pair<string, string> info=read_os_release();
     return info;
 }

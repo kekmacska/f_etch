@@ -24,11 +24,12 @@ constexpr string_view codenames[] = {
   "Q",                   "R",
   "S",                   "Sv2",
   "Tiramisu",            "UpsideDownCake",
-  "VanillaIceCream",     "Baklava"
-};
+  "VanillaIceCream",     "Baklava",
+  "Cinnamon Bun"
+}; // from Android 1 to 17
 
 string android_codename() {
-    #if __ANDROID_API__ >= 26
+#if __ANDROID_API__ >= 26
     if (const prop_info* info = __system_property_find("ro.build.version.codename")) {
         string value;
         // see https://stackoverflow.com/questions/26722040/replacement-for-system-property-get-in-android-l-ndk #1
@@ -61,13 +62,8 @@ string distro() {
     return "Android " + to_string(api) + " " + string(codenames[api - 1]);
 }
 
-
 string android_cpu() {
     char value[PROP_VALUE_MAX] = {};
     uint8_t len = __system_property_get("ro.soc.model", value);
-    if (len > 0) {            
-        return string(value, len);
-    }
-    //else
-    return "unknown";
+    return len>0 ? string(value, len) : "unknown";
 }
