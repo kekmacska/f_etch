@@ -52,14 +52,17 @@ pair<string, string> read_os_release() {
     return {std::move(family), std::move(distro)};
 }
 
+const auto distro_info() { // helper to only call reader function once
+    static pair<string, string> info=read_os_release();
+    return info;
+}
+
 string distro_family() {
-    static auto info = read_os_release();
-    return info.first;
+    return distro_info().first;
 }
 
 string distro() {
-    static auto info = read_os_release();
-    return info.second;
+    return distro_info().second;
 }
 
 string linux_cpu() {
